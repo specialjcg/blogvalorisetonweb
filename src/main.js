@@ -27,11 +27,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
-
-      // eslint-disable-next-line no-constant-condition
       authorization: "dShgKFbHz26JZNhjxjrB4UCefbZyPfN-yqO2qPjXmeE"
-        ? `Bearer ${"dShgKFbHz26JZNhjxjrB4UCefbZyPfN-yqO2qPjXmeE"}`
-        : ""
     }
   }));
   return forward(operation);
