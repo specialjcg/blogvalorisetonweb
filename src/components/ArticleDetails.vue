@@ -17,7 +17,7 @@
           <img v-else v-bind:alt="article.headline" />
         </header>
         <h2>{{ article.headline }}</h2>
-        <pre><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar">  </i>{{ mydatepost(article.created) }}</pre>
+        <pre><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar">  </i>{{ article.created }}</pre>
         <div class="content" v-html="article.content"></div>
       </div>
     </article>
@@ -55,6 +55,7 @@ export default {
 section {
   max-width: 900px;
   margin: 50px auto;
+  font-family: "Courgette", cursive;
 }
 section article {
   width: 100%;
@@ -80,19 +81,21 @@ section article img {
   vertical-align: middle;
 }
 section article aside {
-  font-size: 14px;
+  font-size: 1em;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
   opacity: 0.75;
 }
 section article .content {
+  line-height: 1.5em;
+  font-size: 1.2em;
   text-align: left;
   padding: 40px 30px 10px;
 }
 $yellow: #fbc831;
-.content /deep/ h3 {
-  line-height: 1em;
+.content /deep/ h1 {
+  line-height: 1.2em;
   font-size: 1.618em;
   color: $yellow;
 }

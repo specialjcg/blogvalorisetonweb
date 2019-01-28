@@ -43,7 +43,7 @@
               <h4>{{ article.headline }}</h4>
               <hr />
               <div class="commentaire">
-                <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  mydatepost(article.created)  }}</p></pre>
+                <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  article.created }}</p></pre>
               </div>
             </div>
             <div class="card-info" :id="cardinfo(index)">
