@@ -11,7 +11,7 @@
 
           <img
             v-if="article.image"
-            v-bind:src="article.image.url"
+            v-bind:src="article.image"
             v-bind:alt="article.headline"
           />
           <img v-else v-bind:alt="article.headline" />
@@ -25,12 +25,16 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import json from "./article/article.json";
 export default {
   data() {
     return {
+      articles: json,
       article: null
     };
+  },
+  mounted() {
+    this.article = this.articles[Number(this.$route.params.id) - 1];
   },
   methods: {
     mydatepost(index) {
@@ -40,31 +44,6 @@ export default {
     },
     navigateBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    }
-  },
-  apollo: {
-    article: {
-      query: gql`
-        query($id: ID!) {
-          getArticles(id: $id) {
-            id
-            created
-            headline
-            content
-            image {
-              url
-            }
-          }
-        }
-      `,
-      update: result => {
-        return result.getArticles;
-      },
-      variables() {
-        return {
-          id: this.$route.params.id
-        };
-      }
     }
   }
 };

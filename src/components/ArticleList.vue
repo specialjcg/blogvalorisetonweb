@@ -27,13 +27,14 @@
         <article
           @mouseenter="effaceTitre2(index)"
           @mouseleave="visibleTitre2(index)"
-        >
-          <div v-on:click="navigateToArticle(article.id)">
+        >   <div v-on:click="navigateToArticle(article.id)">
+        <router-link :to="{ name: 'article/'+ article.id, params: article }">
+        
             <img
               v-if="article.image"
               class="img1"
-              v-bind:src="article.image.url"
-              v-bind:alt="article.headline"
+             :src="article.image"
+              :alt="article.headline"
               :id="imginfo(index)"
             />
             <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
@@ -48,7 +49,7 @@
             <div class="card-info" :id="cardinfo(index)">
               <p>{{ article.summary }}</p>
             </div>
-          </div>
+          </router-link></div>
         </article>
       </div>
     </div>
@@ -56,11 +57,12 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import json from "./article/article.json";
+
 export default {
   data() {
     return {
-      articles: []
+      articles: json
     };
   },
   methods: {
@@ -97,32 +99,6 @@ export default {
     },
     navigateToArticle(id) {
       this.$router.push("article/" + id);
-    }
-  },
-  apollo: {
-    articles: {
-      query: gql`
-        {
-          findArticles(
-            sort: { field: "created", order: "DESC" }
-            limit: 9
-            page: 1
-          ) {
-            result {
-              id
-              created
-              headline
-              summary
-              image {
-                url
-              }
-            }
-          }
-        }
-      `,
-      update: result => {
-        return result.findArticles.result;
-      }
     }
   }
 };
