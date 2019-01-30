@@ -7,7 +7,7 @@
     <article>
       <div class="block">
         <header>
-          <a href="#" class="back" v-on:click="navigateBack()">Go Back</a>
+          <button href="#"  v-on:click="navigateBack()">Go Back</button>
 
           <img
             v-if="article.image"
@@ -54,7 +54,8 @@ export default {
 @import "./font.css";
 section {
   max-width: 900px;
-  margin: 50px auto;
+  margin: 20vh auto;
+
   font-family: "Courgette", cursive;
 }
 section article {
@@ -76,9 +77,10 @@ section article header {
 }
 section article img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: inline-block;
   vertical-align: middle;
+  object-fit: cover;
 }
 section article aside {
   font-size: 1em;
@@ -100,8 +102,52 @@ $yellow: #fbc831;
   color: $yellow;
 }
 h2 {
+  padding: 40px 30px 10px;
+  text-align: left;
   margin-top: -1vh;
   font-size: 2.618em;
   color: $yellow;
+}
+button {
+  color: #fbc831;
+  font-family: "Bitter", serif;
+  text-shadow: 3px 3px 3px #d17b0f;
+  background: rgba(0, 113, 0, 1.2);
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  border-radius: 5px;
+  text-decoration: none;
+  height: auto;
+  font-size: 2em;
+  font-weight: 800;
+  text-align: center;
+  width: auto;
+  margin-left: 7vw;
+  margin-right: 5vw;
+  z-index: 1;
+  flex: 0 1 auto;
+  position: absolute;
+}
+button:hover {
+  transition: all 0.5s ease;
+  /*background:#4BA62A;*/
+  background-image: linear-gradient(
+    to left,
+    #007100,
+    #1b7e0c,
+    #2d8b17,
+    #3c9821,
+    #4ba62a
+  );
+  transform-origin: 0% 50%;
+  transform: rotateY(4deg) rotateZ(1deg);
+}
+button:active {
+  /*background:#4BA62A;*/
+  transition: all 0.1s ease;
+  background: black;
 }
 </style>

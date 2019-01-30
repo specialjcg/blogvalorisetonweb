@@ -1,27 +1,16 @@
 <template>
   <header>
-    <h1 class="titre1">Crée son site web sur mesure</h1>
+    <h1 class="titre1">Blog de Valorisetonweb :Crée son site web sur mesure</h1>
     
   </header>
 </template>
 
 <script>
-import gql from "graphql-tag";
 export default {
   data() {
     return {
       WebsiteSetting: ""
     };
-  },
-  apollo: {
-    WebsiteSetting: gql`
-      {
-        WebsiteSetting {
-          title
-          footer_text
-        }
-      }
-    `
   }
 };
 </script>
@@ -36,9 +25,10 @@ h1 {
 .titre1 {
   position: relative;
 
-  top: 8vh;
+  top: 15vh;
   z-index: 1;
-  font-family: "Courgette", cursive;
-  font-size: 1.618em;
+  font-family: "Bitter", cursive;
+  font-size: 2.618em;
+  font-style: oblique;
 }
 </style>

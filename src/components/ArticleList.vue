@@ -1,6 +1,6 @@
 <template>
   <div>
-    <link
+  <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
@@ -116,6 +116,7 @@ $txt-color: white;
 
 * {
   box-sizing: border-box;
+
   margin: 0;
   padding: 0;
 }
@@ -140,19 +141,16 @@ $txt-color: white;
 
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-
-  left: 0;
-  right: 0;
-
-  margin: 0;
-  padding: 0;
-  top: 0;
-  z-index: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60vw;
+  max-height: auto;
+  bacz-index: 0;
 }
 
 .card-info {
@@ -201,7 +199,7 @@ $txt-color: white;
   width: 100%;
   height: 100%;
   background-image: cover;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
@@ -279,13 +277,7 @@ p {
   background-size: cover;
   vertical-align: middle;
 }
-.buttercms {
-  transition: all 0.5s ease;
-}
-.buttercms:hover {
-  transform-origin: 10% 5%;
-  transform: scale(1.05);
-}
+
 @media only screen and (min-width: 340px) {
   .blog-home {
     top: 28vh;

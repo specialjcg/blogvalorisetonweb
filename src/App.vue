@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+   <menue></menue>
     <PageHeader />
     <router-view></router-view>
     <PageFooter />
@@ -7,13 +8,15 @@
 </template>
 
 <script>
+import menue from "./components/menu.vue";
 import PageHeader from "./components/PageHeader.vue";
 import PageFooter from "./components/PageFooter.vue";
 export default {
   name: "app",
   components: {
     PageHeader,
-    PageFooter
+    PageFooter,
+    menue
   }
 };
 </script>

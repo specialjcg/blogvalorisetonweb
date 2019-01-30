@@ -3,15 +3,13 @@
     <article>
       <div class="block">
         <a href="#" class="back" v-on:click="navigateBack()">Go Back</a>
-        <div v-html="WebsiteSetting.about_text"></div>
+        
       </div>
     </article>
   </section>
 </template>
 
 <script>
-import gql from "graphql-tag";
-
 export default {
   data() {
     return {
@@ -22,15 +20,6 @@ export default {
     navigateBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     }
-  },
-  apollo: {
-    WebsiteSetting: gql`
-      {
-        WebsiteSetting {
-          about_text
-        }
-      }
-    `
   }
 };
 </script>

@@ -1,27 +1,16 @@
 <template>
   <footer>
-    <span v-html="WebsiteSetting.footer_text"></span>
+   
     <router-link to="/about">About</router-link>
   </footer>
 </template>
 
 <script>
-import gql from "graphql-tag";
 export default {
   data() {
     return {
       WebsiteSetting: ""
     };
-  },
-  apollo: {
-    WebsiteSetting: gql`
-      {
-        WebsiteSetting {
-          title
-          footer_text
-        }
-      }
-    `
   }
 };
 </script>
