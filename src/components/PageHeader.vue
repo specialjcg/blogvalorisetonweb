@@ -17,16 +17,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-  margin: auto;
-
-  font-weight: inherit;
-}
 .titre1 {
-  position: relative;
-
+  position: absolute;
+  margin: auto;
   top: 15vh;
   z-index: 1;
+  left: 2vw;
   font-family: "Bitter", cursive;
   font-size: 2.618em;
   font-style: oblique;

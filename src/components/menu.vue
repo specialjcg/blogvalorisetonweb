@@ -1,6 +1,6 @@
 <template>
   <div class="heade">
-    <img src="../logo.png" class="logo" />
+    <img src="../components/logo.png" class="logo" />
 
     <div class="nom">Valorisetonweb</div>
     <a
@@ -17,48 +17,73 @@
     </a>
     <a
       class="expanderSocial"
-      href="https://www.linkedin.com/in/gouleaujeancharles/"
+      href="https://github.com/specialjcg"
       target="_blank"
       rel="noopener noreferrer nofollow"
     >
       <img
-        src="../components/insta2.png"
+        src="../components/GitHub-Mark-Light-32px.png"
         alt="création de site internet sur mesure"
+        title="mon site GitHub"
       />
     </a>
     <a
       class="expanderSocial"
-      href="https://www.linkedin.com/in/gouleaujeancharles/"
       target="_blank"
       rel="noopener noreferrer nofollow"
     >
-      <img
-        src="../components/facebook.png"
-        alt="création de site internet sur mesure"
-      />
-    </a>
-    <a href="https://valorisetonweb.fr/contact" class="vers contact"
-      ><button class="devis">Obtenir votre devis</button></a
+      <Facebook
+        class="tablette_pc"
+        url="https://valorisetonweb.fr"
+        scale="3"
+      ></Facebook>
+      <Facebook
+        class="smarphone"
+        url="https://valorisetonweb.fr"
+        scale="2"
+      ></Facebook
+    ></a>
+    <a class="expanderSocial"
+      target="_blank"
+      rel="noopener noreferrer nofollow">
+      <Twitter
+        class="tablette_pc"
+        url="https://valorisetonweb.fr"
+        scale="3"
+      ></Twitter>
+      <Twitter
+        class="smarphone"
+        url="https://valorisetonweb.fr"
+        scale="2"
+      ></Twitter
+    ></a>
+    <router-link to="/contact" class="vers contact"
+      ><button class="devis">Obtenir votre devis</button></router-link
     >
     <ul v-if="this.visible">
       <li>
-        <a href="https://valorisetonweb.fr">Valorisetonweb.fr</a>
+       <a href="https://valorisetonweb.fr">Acceuil</a>
       </li>
       <li><router-link to="/">A propos</router-link></li>
       <li>
         <a href="https://valorisetonweb.fr/blog">blog</a>
       </li>
       <li>
-        <router-link to="/portfolio">Porfolio</router-link>
+      <a href="https://valorisetonweb.fr/portfolio">portfolio</a>
       </li>
       <li>
-        <a href="https://valorisetonweb.fr/contact">contact</a>
+       <a href="https://valorisetonweb.fr/contact">contact</a>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { Facebook, Twitter } from "vue-socialmedia-share";
 export default {
+  components: {
+    Facebook,
+    Twitter
+  },
   name: "menue",
   data() {
     return {
@@ -74,7 +99,7 @@ export default {
 };
 </script>
 <style scoped>
-@import "font.css";
+@import "../components/font.css";
 
 .heade {
   position: fixed;
@@ -97,6 +122,12 @@ export default {
 
   z-index: 7;
   background: #000000;
+}
+.tablette_pc {
+  display: unset;
+}
+.smarphone {
+  display: none;
 }
 .nom {
   flex: 0 1 auto;
@@ -146,7 +177,8 @@ li a:hover {
   font-family: "Courgette", cursive;
 }
 
-img {
+img,
+span {
   width: 3vw;
   min-height: 5vh;
 
@@ -158,6 +190,7 @@ img {
   vertical-align: middle;
   flex: 0 1 auto;
 }
+
 .logo {
   display: inline-block;
   flex: 0 1 auto;
@@ -187,7 +220,7 @@ button {
   text-align: center;
   width: 22vw;
   margin-left: 7vw;
-  margin-right: 5vw;
+  margin-right: 1vw;
   z-index: 1;
   flex: 0 1 auto;
 }
@@ -211,12 +244,19 @@ button:active {
   background: black;
 }
 @media only screen and (max-width: 500px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   .heade {
     min-height: 16.08vh;
 
     flex-flow: row wrap;
   }
-  img {
+  img,
+  span {
     width: 5vw;
     min-height: 5vh;
 
@@ -224,6 +264,7 @@ button:active {
     padding: 0;
     flex: 1 0 auto;
   }
+
   .nom {
     flex: 1 0 auto;
 
@@ -264,12 +305,19 @@ button:active {
   }
 }
 @media only screen and (min-width: 500px) and (max-width: 640px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   .heade {
     min-height: 16.08vh;
 
     flex-flow: row wrap;
   }
-  img {
+  img,
+  span {
     width: 5vw;
     min-height: 5vh;
 
@@ -315,15 +363,23 @@ button:active {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 
 @media only screen and (min-width: 640px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   .heade {
     min-height: 11.08vh;
     flex-flow: row wrap;
   }
-  img {
+  img,
+  span {
     margin: 1vw;
     padding: 0;
     flex: 1 0 auto;
   }
+
   .nom {
     flex: 1 0 auto;
 
@@ -364,10 +420,17 @@ button:active {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   .heade {
     min-height: 11.08vh;
   }
-  img {
+  img,
+  span {
     margin: 1vw;
     padding: 0;
     flex: 1 0 auto;
@@ -408,10 +471,17 @@ button:active {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   .heade {
     min-height: 5vh;
   }
-  img {
+  img,
+  span {
     margin: 1vw;
     padding: 0;
     flex: 1 0 auto;
@@ -461,11 +531,18 @@ button:active {
     width: 24vw;
     flex: 0 1 auto;
   }
+  .tablette_pc {
+    display: unset;
+  }
+  .smarphone {
+    display: none;
+  }
   .heade {
     min-height: 5vh;
     vertical-align: center;
   }
-  img {
+  img,
+  span {
     flex: 0 1 auto;
   }
   .logo {
@@ -503,13 +580,24 @@ button:active {
     margin-left: 3vw;
     margin-right: 1vw;
   }
+  .tablette_pc {
+    display: unset;
+  }
+  .smarphone {
+    display: none;
+  }
 }
 @media only screen and (min-width: 1400px) {
   .heade {
     min-height: 5vh;
     vertical-align: center;
   }
-
+  .tablette_pc {
+    display: unset;
+  }
+  .smarphone {
+    display: none;
+  }
   button {
     font-size: 2em;
 

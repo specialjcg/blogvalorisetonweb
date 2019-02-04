@@ -19,7 +19,7 @@ export default {
 <style scoped>
 span {
   display: inline-block;
-  margin-right: 10px;
+  margin: auto;
 }
 a {
   color: #3eaf7c;

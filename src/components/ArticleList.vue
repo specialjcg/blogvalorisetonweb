@@ -5,18 +5,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
-    <picture class="fondecran">
-      <source
-        srcset="../assets/trianglify.svg"
-        type="image/svg+xml"
-        alt="createur-de-site-internet sur mesure beaujolais oingt"
-      />
-      <img
-        class="img1"
-        src="../assets/trianglify.png"
-        alt="createur-de-site-internet sur mesure beaujolais oingt"
-      />
-    </picture>
+    
     <div class="container">
      
       <div
@@ -24,17 +13,21 @@
         v-for="(article, index) in articles"
         v-bind:key="article.id"
       >
+       
         <article
           @mouseenter="effaceTitre2(index)"
           @mouseleave="visibleTitre2(index)"
-        >   <div v-on:click="navigateToArticle(article.id)">
-        <router-link :to="{ name: 'article/'+ article.id, params: article }">
+        >  
+
+         <div v-on:click="navigateToArticle(article.id)">
+
+        <router-link :to="{ name: 'blogarticle', params: {id:article.id} }" :key="$route.fullPath">
         
             <img
               v-if="article.image"
-              class="img1"
+              class="img3"
              :src="article.image"
-              :alt="article.headline"
+              :alt="article.image"
               :id="imginfo(index)"
             />
             <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
@@ -52,7 +45,9 @@
           </router-link></div>
         </article>
       </div>
+       
     </div>
+   
   </div>
 </template>
 
@@ -62,14 +57,17 @@ import json from "./article/article.json";
 export default {
   data() {
     return {
-      articles: json
+      articles: []
     };
   },
+  created() {
+    this.getPosts();
+  },
   methods: {
-    mydatepost(index) {
-      var essai = new Date(index * 1000).toLocaleDateString();
-      return essai;
+    getPosts() {
+      this.articles = json;
     },
+
     titre2(index) {
       var essai = "titre2" + index;
 
@@ -98,7 +96,7 @@ export default {
       document.getElementById("imginfo" + index).style.opacity = 1;
     },
     navigateToArticle(id) {
-      this.$router.push("article/" + id);
+      this.$router.push(id);
     }
   }
 };
@@ -114,29 +112,10 @@ $h-color: white;
 $yellow: #fbc831;
 $txt-color: white;
 
-* {
-  box-sizing: border-box;
-
-  margin: 0;
-  padding: 0;
-}
 .commentaire {
   top: 40vh;
   position: absolute;
   color: $txt-color;
-}
-.fondecran {
-  position: fixed;
-
-  left: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-
-  margin: 0;
-  padding: 0;
-  top: 0;
-  z-index: 0;
 }
 
 .container {
@@ -150,7 +129,7 @@ $txt-color: white;
   margin-right: auto;
   max-width: 60vw;
   max-height: auto;
-  bacz-index: 0;
+  z-index: 0;
 }
 
 .card-info {
@@ -177,11 +156,10 @@ $txt-color: white;
   top: 20vh;
   left: 2vw;
 
-  overflow: hidden;
   border-radius: 10px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
-  min-width: auto;
+  min-width: 20vw;
   align-self: flex-start;
   flex: 0 1 auto;
   background: black;
@@ -203,9 +181,18 @@ $txt-color: white;
   top: 0;
   left: 0;
   transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
+  z-index: 1;
+}
+.img3 {
+  width: 100%;
+  height: 25vh;
+  background-image: cover;
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
   z-index: 0;
 }
-
 hr {
   position: relative;
   width: 11.08vw;
@@ -285,12 +272,6 @@ p {
   .titre1 {
     top: 15vh;
   }
-  .img2 {
-    top: 23vh;
-    left: 20vw;
-    width: 18vw;
-    height: 5vh;
-  }
 }
 
 @media only screen and (min-width: 640px) {
@@ -300,33 +281,15 @@ p {
   .titre1 {
     top: 11vh;
   }
-  .img2 {
-    top: 18vh;
-    left: 25vw;
-    width: 18vw;
-    height: 5vh;
-  }
 }
 @media only screen and (min-width: 900px) {
   .titre1 {
     top: 11vh;
   }
-  .img2 {
-    top: 13.5vh;
-    left: 35vw;
-    width: 15vw;
-    height: 5vh;
-  }
 }
 @media only screen and (min-width: 1400px) {
   .titre1 {
     top: 10vh;
-  }
-  .img2 {
-    top: 13.5vh;
-    left: 25vw;
-    width: 15vw;
-    height: 5vh;
   }
 }
 </style>

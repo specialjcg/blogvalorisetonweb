@@ -27,8 +27,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 section {
+  margin: 20vh auto;
   max-width: 900px;
-  margin: 50px auto;
 }
 
 section article {

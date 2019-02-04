@@ -1,18 +1,18 @@
 <template>
   <section v-if="article">
-    <link
+  <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <article>
       <div class="block">
         <header>
-          <button href="#"  v-on:click="navigateBack()">Go Back</button>
+          <button class="button1" href="#"  v-on:click="navigateBack()">Go Back</button>
 
-          <img
+          <img class="img1"
             v-if="article.image"
-            v-bind:src="article.image"
-            v-bind:alt="article.headline"
+            v-bind:src="/blog/+article.image"
+            v-bind:alt="article.image"
           />
           <img v-else v-bind:alt="article.headline" />
         </header>
@@ -29,13 +29,13 @@ import json from "./article/article.json";
 export default {
   data() {
     return {
-      articles: json,
-      article: null
+      article: {}
     };
   },
   mounted() {
-    this.article = this.articles[Number(this.$route.params.id) - 1];
+    this.article = json[Number(this.$route.params.id) - 1];
   },
+
   methods: {
     mydatepost(index) {
       var essai = new Date(index * 1000).toLocaleDateString();
@@ -52,6 +52,45 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import "./font.css";
+.img1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
+  z-index: 0;
+}
+.block {
+  box-sizing: border-box;
+  border-radius: 3px;
+  height: 100%;
+  background: white;
+  box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-out;
+  overflow: hidden;
+  position: relative;
+  padding: 30px;
+}
+.block .back {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: bold;
+  height: auto;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 7px 15px 5px;
+  background: #3eaf7c;
+  color: white;
+  border-radius: 2px;
+  line-height: 100%;
+  text-transform: uppercase;
+  text-decoration: none;
+}
 section {
   max-width: 900px;
   margin: 20vh auto;
@@ -65,6 +104,7 @@ section article {
 }
 section article .block {
   padding: 0;
+  margin: 0;
 }
 section article header {
   height: 300px;
@@ -80,7 +120,6 @@ section article img {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
-  object-fit: cover;
 }
 section article aside {
   font-size: 1em;
@@ -108,7 +147,13 @@ h2 {
   font-size: 2.618em;
   color: $yellow;
 }
-button {
+pre {
+  padding: 0px 30px 0px;
+  text-align: left;
+  margin-top: 0vh;
+  font-family: "Courgette", cursive;
+}
+.button1 {
   color: #fbc831;
   font-family: "Bitter", serif;
   text-shadow: 3px 3px 3px #d17b0f;
@@ -123,15 +168,14 @@ button {
   height: auto;
   font-size: 2em;
   font-weight: 800;
-  text-align: center;
+  left: 0;
   width: auto;
-  margin-left: 7vw;
-  margin-right: 5vw;
+
   z-index: 1;
-  flex: 0 1 auto;
+
   position: absolute;
 }
-button:hover {
+.button1:hover {
   transition: all 0.5s ease;
   /*background:#4BA62A;*/
   background-image: linear-gradient(
