@@ -64,7 +64,7 @@
       <li>
        <a href="https://valorisetonweb.fr">Acceuil</a>
       </li>
-      <li><router-link to="/">A propos</router-link></li>
+      <li><router-link to="/1">A propos</router-link></li>
       <li>
         <a href="https://valorisetonweb.fr/blog">blog</a>
       </li>
