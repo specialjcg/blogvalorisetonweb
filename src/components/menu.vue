@@ -64,7 +64,9 @@
       <li>
        <a href="https://valorisetonweb.fr">Acceuil</a>
       </li>
-      <li><router-link to="/1">A propos</router-link></li>
+      <li> 
+        <a href="https://valorisetonweb.fr/blog/1">A propos</a>
+        </li>
       <li>
         <a href="https://valorisetonweb.fr/blog">blog</a>
       </li>
@@ -295,11 +297,13 @@ button:active {
     text-align: left;
     list-style-type: none;
 
-    margin-left: -3vw;
-    margin-right: 4vw;
+    margin-left: -6vw;
+    margin-right: 3vw;
     flex-shrink: 0;
   }
   li {
+    font-size: 0.9em;
+
     padding-right: 3vw;
     padding-left: 3vw;
   }
@@ -357,6 +361,9 @@ button:active {
     margin-left: 6vw;
     margin-right: auto;
     flex-shrink: 0;
+  }
+  li {
+    font-size: 1.218em;
   }
 }
 
@@ -525,10 +532,16 @@ button:active {
 }
 
 @media only screen and (min-width: 1100px) {
+  .tablette_pc {
+    display: none;
+  }
+  .smarphone {
+    display: unset;
+  }
   button {
     font-size: 1.618em;
 
-    width: 24vw;
+    width: 23vw;
     flex: 0 1 auto;
   }
   .tablette_pc {
@@ -543,11 +556,13 @@ button:active {
   }
   img,
   span {
-    flex: 0 1 auto;
+    margin: 1vw;
+    padding: 0;
+    flex: 1 0 auto;
   }
   .logo {
     flex: 0 1 auto;
-    margin-left: 2vw;
+    margin-left: 1vw;
   }
   ul {
     padding-right: 1vw;
@@ -565,7 +580,7 @@ button:active {
     flex: 1 0 auto;
     margin: 0;
     padding: 0;
-    margin-left: 3vw;
+    margin-left: 2vw;
     font-size: 1.618em;
     text-align: left;
     vertical-align: center;
@@ -580,6 +595,7 @@ button:active {
     margin-left: 3vw;
     margin-right: 1vw;
   }
+
   .tablette_pc {
     display: unset;
   }
@@ -605,21 +621,25 @@ button:active {
     margin-left: 2vw;
     margin-right: 5vw;
   }
-
+  img,
+  span {
+    margin: 1vw;
+    padding: 0;
+    flex: 1 0 auto;
+  }
   .nom {
     flex: 1 0 auto;
     margin: 0;
     padding: 0;
-    margin-left: 5vw;
+    margin-left: 2vw;
     font-size: 1.618em;
     text-align: left;
     vertical-align: top;
   }
   .logo {
     flex: 0 1 auto;
-    margin: 0;
-    padding: 0;
-    margin-left: 2vw;
+
+    margin-left: 1vw;
   }
 }
 

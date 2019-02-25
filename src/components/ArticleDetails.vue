@@ -80,7 +80,7 @@ export default {
   font-weight: bold;
   height: auto;
   display: inline-block;
-  position: absolute;
+  position: relative;
   top: 10px;
   left: 10px;
   padding: 7px 15px 5px;
@@ -93,7 +93,7 @@ export default {
 }
 section {
   max-width: 900px;
-  margin: 20vh auto;
+  margin: 25vh auto;
 
   font-family: "Courgette", cursive;
 }
@@ -107,11 +107,11 @@ section article .block {
   margin: 0;
 }
 section article header {
-  height: 300px;
+  height: 30vh;
   background: #333;
   text-align: center;
   overflow: hidden;
-  line-height: 300px;
+  line-height: 30vh;
   position: relative;
   margin-bottom: 40px;
 }
@@ -193,5 +193,28 @@ button:active {
   /*background:#4BA62A;*/
   transition: all 0.1s ease;
   background: black;
+}
+@media only screen and (min-width: 340px) {
+  .button1 {
+    font-size: 0.618em;
+  }
+  h2 {
+    font-size: 1.618em;
+  }
+  section {
+    margin: 35vh auto;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .button1 {
+    font-size: 1.618em;
+  }
+  h2 {
+    font-size: 2.618em;
+  }
+  section {
+    margin: 25vh auto;
+  }
 }
 </style>

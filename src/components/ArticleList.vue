@@ -153,7 +153,7 @@ $txt-color: white;
   width: $card-width;
   height: $card-height;
   position: relative;
-  top: 20vh;
+  top: 22vh;
   left: 2vw;
 
   border-radius: 10px;
@@ -177,11 +177,11 @@ $txt-color: white;
   width: 100%;
   height: 100%;
   background-image: cover;
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
   transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-  z-index: 1;
+  z-index: 0;
 }
 .img3 {
   width: 100%;
@@ -267,29 +267,13 @@ p {
 
 @media only screen and (min-width: 340px) {
   .blog-home {
-    top: 28vh;
-  }
-  .titre1 {
-    top: 15vh;
+    top: 38vh;
   }
 }
 
 @media only screen and (min-width: 640px) {
   .blog-home {
-    top: 23vh;
-  }
-  .titre1 {
-    top: 11vh;
-  }
-}
-@media only screen and (min-width: 900px) {
-  .titre1 {
-    top: 11vh;
-  }
-}
-@media only screen and (min-width: 1400px) {
-  .titre1 {
-    top: 10vh;
+    top: 28vh;
   }
 }
 </style>
