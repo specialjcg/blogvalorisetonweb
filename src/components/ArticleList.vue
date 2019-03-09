@@ -1,53 +1,49 @@
 <template>
   <div>
-  <link
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
-    
     <div class="container">
-     
       <div
         class="blog-home"
         v-for="(article, index) in articles"
         v-bind:key="article.id"
       >
-       
         <article
           @mouseenter="effaceTitre2(index)"
           @mouseleave="visibleTitre2(index)"
-        >  
+        >
+          <div v-on:click="navigateToArticle(article.id)">
+            <router-link
+              :to="{ name: 'blogarticle', params: { id: article.id } }"
+              :key="$route.fullPath"
+            >
+              <img
+                v-if="article.image"
+                class="img3"
+                :src="article.image"
+                :alt="article.image"
+                :id="imginfo(index)"
+              />
+              <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
 
-         <div v-on:click="navigateToArticle(article.id)">
-
-        <router-link :to="{ name: 'blogarticle', params: {id:article.id} }" :key="$route.fullPath">
-        
-            <img
-              v-if="article.image"
-              class="img3"
-             :src="article.image"
-              :alt="article.image"
-              :id="imginfo(index)"
-            />
-            <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
-
-            <div :id="titre2(index)">
-              <h4>{{ article.headline }}</h4>
-              <hr />
-              <div class="commentaire">
-                <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  article.created }}</p></pre>
+              <div :id="titre2(index)">
+                <h4>{{ article.headline }}</h4>
+                <hr />
+                <div class="commentaire">
+                  <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  article.created }}</p></pre>
+                </div>
               </div>
-            </div>
-            <div class="card-info" :id="cardinfo(index)">
-              <p>{{ article.summary }}</p>
-            </div>
-          </router-link></div>
+              <div class="card-info" :id="cardinfo(index)">
+                <p>{{ article.summary }}</p>
+              </div>
+            </router-link>
+          </div>
         </article>
       </div>
-       
     </div>
-   
   </div>
 </template>
 
@@ -127,7 +123,7 @@ $txt-color: white;
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
-  max-width: 60vw;
+  max-width: 90vw;
   max-height: auto;
   z-index: 0;
 }

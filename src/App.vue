@@ -1,25 +1,24 @@
 <template>
   <div id="app">
-    <picture >
+    <picture>
       <source
         srcset="@/assets/trianglify.svg"
         type="image/svg+xml"
         alt="createur-de-site-internet sur mesure beaujolais oingt"
       />
-      <img class="fondecran"
-       
+      <img
+        class="fondecran"
         src="@/assets/trianglify.png"
         alt="createur-de-site-internet sur mesure beaujolais oingt"
       />
-    </picture> 
-   <menue></menue>  
- 
+    </picture>
+    <menue></menue>
+
     <PageHeader />
-  <transition name="slide-out-elliptic-top-fwd" mode="out-in">
-   <router-view :key="$route.fullPath" ></router-view>
-   </transition>
-   
-   
+    <transition name="slide-out-elliptic-top-fwd" mode="out-in">
+      <router-view :key="$route.fullPath"></router-view>
+    </transition>
+
     <PageFooter />
   </div>
 </template>

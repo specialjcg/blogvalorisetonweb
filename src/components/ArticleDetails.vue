@@ -1,22 +1,26 @@
 <template>
   <section v-if="article">
-  <link
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link href="themes/prism.css" rel="stylesheet" />
     <article>
       <div class="block">
         <header>
-          <button class="button1" href="#"  v-on:click="navigateBack()">Go Back</button>
+          <button class="button1" href="#" v-on:click="navigateBack()">
+            Go Back
+          </button>
 
-          <img class="img1"
+          <img
+            class="img1"
             v-if="article.image"
-            v-bind:src="/blog/+article.image"
+            v-bind:src="/blog/ + article.image"
             v-bind:alt="article.image"
           />
           <img v-else v-bind:alt="article.headline" />
         </header>
-        <h2>{{ article.headline }}</h2>
+        <h1>{{ article.headline }}</h1>
         <pre><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar">  </i>{{ article.created }}</pre>
         <div class="content" v-html="article.content"></div>
       </div>
@@ -26,6 +30,8 @@
 
 <script>
 import json from "./article/article.json";
+import Prism from "prismjs";
+
 export default {
   data() {
     return {
@@ -35,7 +41,9 @@ export default {
   mounted() {
     this.article = json[Number(this.$route.params.id) - 1];
   },
-
+  updated: function() {
+    Prism.highlightAll();
+  },
   methods: {
     mydatepost(index) {
       var essai = new Date(index * 1000).toLocaleDateString();
@@ -52,6 +60,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 @import "./font.css";
+
 .img1 {
   position: absolute;
   width: 100%;
@@ -95,7 +104,7 @@ section {
   max-width: 900px;
   margin: 25vh auto;
 
-  font-family: "Courgette", cursive;
+  font-family: "Merriweather";
 }
 section article {
   width: 100%;
@@ -135,24 +144,41 @@ section article .content {
   padding: 40px 30px 10px;
 }
 $yellow: #fbc831;
-.content /deep/ h1 {
+.content /deep/ h2 {
   line-height: 1.2em;
   font-size: 1.618em;
   color: $yellow;
+  font-family: "Merriweather";
 }
-h2 {
+.content /deep/ p,
+.content /deep/ ul {
+  color: #54534f;
+  font-family: "Merriweather";
+  margin-top: 1em;
+  line-height: inherit;
+  line-height: 1.2em;
+  font-size: 1.2em;
+}
+.content /deep/ pre > code {
+  font-size: inherit;
+  font-size: 0.7em;
+}
+
+h1 {
+  font-family: "Six Caps";
   padding: 40px 30px 10px;
   text-align: left;
   margin-top: -1vh;
   font-size: 2.618em;
   color: $yellow;
 }
-pre {
+
+section article .block > pre {
   padding: 0px 30px 0px;
-  text-align: left;
+  text-align: center;
   margin-top: 0vh;
-  font-family: "Courgette", cursive;
 }
+
 .button1 {
   color: #fbc831;
   font-family: "Bitter", serif;
@@ -198,7 +224,7 @@ button:active {
   .button1 {
     font-size: 0.618em;
   }
-  h2 {
+  h1 {
     font-size: 1.618em;
   }
   section {
@@ -210,11 +236,13 @@ button:active {
   .button1 {
     font-size: 1.618em;
   }
-  h2 {
+  h1 {
     font-size: 2.618em;
   }
   section {
     margin: 25vh auto;
   }
 }
+
+@import "./article/prism.css";
 </style>
