@@ -7,18 +7,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
    <link href="prism.css" rel="stylesheet" />
+   <style type="text/css">
+
+    pre {
+   margin:auto;
+       max-width: 95%;
+    }
+   .imgage {
+     
+   margin:auto;
+      width:95%;
+     height:20vh;
+    }
+ 
+
+</style>
 </head>
 <body>
    
 <script src="prism.js"></script>
-    <h2>Comment
-        réaliser une transition entremêlée avec VUEJS </h2>
+    <h2>Solution pour
+        réaliser une transition imbriquée avec VUEJS </h2>
     <p>Vue
         autorise facilement l’animation (affichage ou masquage) d’un élément via
         la balise &lt;transition&gt;</p>
    
-
-    <p> <img class="img1" src="/blog/dandelion-2817950_640.jpg" alt=""></p>
+ <p style="text-align: center;">
+    <img class="imgage" src="/blog/dandelion-2817950_640.jpg" alt=""  ></p>
     <p>Mais
         qu'en est-il des cas où vous souhaitez afficher ou masquer des éléments
         entremêlés de manière séquentielle? Par exemple, une fois l'élément racine
@@ -264,8 +279,8 @@ transition: 0.2s opacity ease-out;
 }
 </code></pre>
 
-    <p style="text-align: center;"><img src="/blog/all-is-well-1418895_640.jpg" alt="Photo par LisaAttractLove sur Pixabay"
-            title="Photo par LisaAttractLove sur Pixabay" style="width: 399px; height: 300px;"><br>
+    <p style="text-align: center;"><img class=imgage src="/blog/all-is-well-1418895_640.jpg" alt="Photo par LisaAttractLove sur Pixabay"
+            title="Photo par LisaAttractLove sur Pixabay" ><br>
     </p>
     <h2>Appliquer
         des transitions imbriquées à la fenêtre modale</h2>
@@ -364,19 +379,6 @@ transition: 0.2s opacity ease-out;
     <p>Cet article est une version traduite et modifiée de l'excellent article de <a href="https://medium.com/@Taha_Shashtari/how-to-apply-nested-transitions-in-vue-d3a9fe1e1c98">Taha_Shashtari</a> sur medium.com</p>
 
 </body>
-<style >
-*{padding:0;
-margin:0}
-    pre,iframe {  display:block;
-       
-        padding: 1px 0;
 
-   margin:auto;
-       max-width: 80%;
-    }
-   
- 
-
-</style>
 
 </html>

@@ -138,8 +138,6 @@ section article aside {
   opacity: 0.75;
 }
 section article .content {
-  line-height: 1.5em;
-  font-size: 1.2em;
   text-align: left;
   padding: 40px 30px 10px;
 }
@@ -162,6 +160,7 @@ $yellow: #fbc831;
 .content /deep/ pre > code {
   font-size: inherit;
   font-size: 0.7em;
+  line-height: 1.2em;
 }
 
 h1 {
@@ -225,10 +224,23 @@ button:active {
     font-size: 0.618em;
   }
   h1 {
-    font-size: 1.618em;
+    font-size: 2.618em;
   }
   section {
     margin: 35vh auto;
+  }
+
+  section article .content {
+    line-height: 1.2em;
+    font-size: 1em;
+    text-align: left;
+    padding: 40px 30px 10px;
+  }
+  .content /deep/ pre > code {
+    font-size: inherit;
+    font-size: 0.5em;
+    line-height: inherit;
+    line-height: 0.6em;
   }
 }
 
@@ -241,6 +253,18 @@ button:active {
   }
   section {
     margin: 25vh auto;
+  }
+  section article .content {
+    line-height: 1.2em;
+    font-size: 1em;
+    text-align: left;
+    padding: 40px 30px 10px;
+  }
+  .content /deep/ pre > code {
+    font-size: inherit;
+    font-size: 0.7em;
+    line-height: inherit;
+    line-height: 1em;
   }
 }
 

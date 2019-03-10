@@ -43,38 +43,32 @@
         scale="2"
       ></Facebook
     ></a>
-    <a class="expanderSocial"
+    <a
+      class="expanderSocial"
       target="_blank"
-      rel="noopener noreferrer nofollow">
-      <Twitter
-        class="tablette_pc"
-        url="https://valorisetonweb.fr"
-        scale="3"
-      ></Twitter>
-      <Twitter
-        class="smarphone"
-        url="https://valorisetonweb.fr"
-        scale="2"
-      ></Twitter
+      rel="noopener noreferrer nofollow"
+    >
+      <Twitter class="tablette_pc" :url="myurl()" scale="3"></Twitter>
+      <Twitter class="smarphone" :url="myurl()" scale="2"></Twitter
     ></a>
-    <router-link to="/contact" class="vers contact"
-      ><button class="devis">Obtenir votre devis</button></router-link
+    <a href="https://valorisetonweb.fr/contact"
+      ><button class="devis">Obtenir votre devis</button></a
     >
     <ul v-if="this.visible">
       <li>
-       <a href="https://valorisetonweb.fr">Acceuil</a>
+        <a href="https://valorisetonweb.fr">Acceuil</a>
       </li>
-      <li> 
+      <li>
         <a href="https://valorisetonweb.fr/blog/1">A propos</a>
-        </li>
+      </li>
       <li>
         <a href="https://valorisetonweb.fr/blog">blog</a>
       </li>
       <li>
-      <a href="https://valorisetonweb.fr/portfolio">portfolio</a>
+        <a href="https://valorisetonweb.fr/portfolio">portfolio</a>
       </li>
       <li>
-       <a href="https://valorisetonweb.fr/contact">contact</a>
+        <a href="https://valorisetonweb.fr/contact">contact</a>
       </li>
     </ul>
   </div>
@@ -94,6 +88,9 @@ export default {
   },
 
   methods: {
+    myurl() {
+      return document.location.href;
+    },
     menu1() {
       this.visible = !this.visible;
     }
