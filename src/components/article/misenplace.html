@@ -33,37 +33,34 @@
         la balise &lt;transition&gt;</p>
    
  <p style="text-align: center;">
-    <img class="imgage" src="/blog/dandelion-2817950_640.jpg" alt=""  ></p>
+    <img class="imgage" src="/blog/gettyimages-517044090-612x612.jpg" alt=""  ></p>
     <p>Mais
-        qu'en est-il des cas où vous souhaitez afficher ou masquer des éléments
-        entremêlés de manière séquentielle? Par exemple, une fois l'élément racine
+        qu'en est-il quand vous souhaitez afficher ou masquer des éléments
+        imbriqués séquentiellement? Par exemple, une fois l'élément racine
         affiché, affichez l'élément A, puis l'élément B, etc.</p>
 
     <p>Imaginons
-        que nous voulions animer des transitions avec des éléments entremêlés de
-        façon ordonnée :Bouton →transition→fenêtre Modale → transition-&gt;bouton</p>
+        que nous voulions progressivement animer des transitions entre éléments emboités:Bouton →transition→fenêtre Modale → transition-&gt;bouton</p>
     <p>Avec Vue
         vous pourrez le faire facilement,un moyen existe pour savoir quand la
         transition précédente est terminée pour commencer la suivante.</p>
-    <p>Si vous ne l’avez jamais fait auparavant et que vous vous demandez
-        comment, je vais vous faire gagner un peu de temps et vous montrer comment
-        le faire de manière propre et contrôlable. </p>
+    <p>Si vous vous demandez
+        comment le réaliser et que ne l’avez jamais fait, je vais vous montrer comment l'éxécuter de manière propre et contrôlable. </p>
     <p>Pour
-        cela nous allons créer un composant Citation&nbsp; qui s’affiche en deux
-        étapes (transitions). Tout d'abord, nous affichons l'arrière-plan de
-        superposition, puis la fenêtre Modale blanche.</p>
-    <p>Nous
-        allons d’abord créer le bouton puis le composant Citation </p>
-    <p>L'utilisateur
-        peut afficher le composant Citation en cliquant sur le bouton et la fermer
-        en cliquant sur l'arrière-plan de superposition. Dans cette 1ére partie,
-        le composant Citation s'ouvrira sans animations.</p>
+        cela nous allons d’abord créer un bouton et un composant Citation.</p> 
+        <p>Nous utiliserons un arrière-plan de
+        superposition pour masquer le bouton, et afficherons une fenêtre modale blanche, en 3 étapes:</p>
+    
+    <p>1ére étape, l'utilisateur
+        affiche le composant Citation en cliquant sur le bouton et le ferme
+        en cliquant sur l'arrière-plan de superposition. 
+        Le composant Citation s'ouvrira sans animations.</p>
     <p>Dans un
         second temps, nous ajouterons une transition en une étape - ainsi,
         l’arrière-plan de superposition et la zone de contenu seront affichés
         simultanément.</p>
     <p>Enfin,
-        nous ajouterons une transition imbriquée pour la zone de contenu, qui sera
+        nous ajouterons une transition imbriquée sur la fenêtre modale, qui sera
         affichée une fois la transition d’arrière-plan superposée terminée.</p>
 <p>Ci dessous ce que nous voulons obtenir<br>
 </p>
@@ -72,7 +69,7 @@
         sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
     </p>
 
-    <h2>Affichage
+    <h2>1 ére étape: affichage
         du Composant Citation sans animation</h2>
     <p>Commençons
         rapidement avec le <a href="https://cli.vuejs.org/guide/installation.html">prototypage
@@ -210,10 +207,10 @@ button:hover {
 &lt;/script&gt;
 </code ></pre>
     <p>Notez
-        que l'élément déclencheur ici (.fond) est utilisé comme arrière-plan de
+        que la classe ".fond" est utilisé comme arrière-plan de
         superposition de la future fenêtre modale. Lorsque l'utilisateur clique
-        dessus, l'événement de clôture est émis. Notez également comment nous
-        utilisons @ click.stop sur ".content" pour l’empêcher de fermer la fenêtre
+        dessus, l'événement de clôture est émis.Nous
+        utilisons @click.stop sur ".content" pour empêcher la fermeture de la fenêtre
         modale lorsque vous cliquez dessus. Pour égayer notre fenêtre modale j'ai
         rajouté un setinterval sur les citations.</p>
 
@@ -247,11 +244,10 @@ box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
 
     <p>À ce stade, vous devriez pouvoir ouvrir / fermer la fenêtre modale, mais sans
         animation. </p>
-    <h2>Transition
-        en une étape Maintenant</h2>
+    <h2>2 éme étape:Transition
+        en une seule phase</h2>
     <p>Ouvrons
-        la fenêtre modale avec une transition en fondu à une étape. C’est si
-        facile à faire. Enveloppez simplement le contenu du composant modal avec</p>
+        la fenêtre modale avec une transition fondu en une étape. C’est "Bête comme chou". Enveloppez simplement le contenu du composant modal avec</p>
 
     <pre class="language-markup"><code class="language-markup">&lt;transition name="fade"&gt;&lt;/transition&gt;</code></pre>
 
@@ -282,7 +278,7 @@ transition: 0.2s opacity ease-out;
     <p style="text-align: center;"><img class=imgage src="/blog/all-is-well-1418895_640.jpg" alt="Photo par LisaAttractLove sur Pixabay"
             title="Photo par LisaAttractLove sur Pixabay" ><br>
     </p>
-    <h2>Appliquer
+    <h2>3 éme étape: Ajouter
         des transitions imbriquées à la fenêtre modale</h2>
     <p>Voici
         comment nous allons le faire: </p>
@@ -348,7 +344,7 @@ transition: 0.2s opacity ease-out;
  &lt;/script&gt;
 </code></pre>
     <h2>Voici
-        comment fonctionne la partie d'affichage: </h2>
+        comment fonctionne la partie affichage: </h2>
     <p>Lorsque
         l'utilisateur clique sur le bouton, nous définissons showComponent sur
         true, ce qui déclenche la balise &lt;transition&gt;, qui affiche
@@ -359,7 +355,7 @@ transition: 0.2s opacity ease-out;
         <p>
         Maintenant pour la partie masquée, lorsque l'utilisateur clique sur
         l'arrière-plan,nous mettons showContent sur false, ce qui exécute la
-        transition pour quiter&nbsp; l'élément de classe "content".
+        transition pour quitter&nbsp; l'élément de classe "content".
          <p>Et lorsque
         cette transition est terminée, l'événement @after-leave est lancé. Nous
         traitons cet événement en émettant le signal 'close' qui définit
@@ -372,8 +368,8 @@ transition: 0.2s opacity ease-out;
 
     <br>
 
-    <p>remerciement
-        et Inspiration:<a href="https://freefrontend.com/css-modal-windows/"><br>
+    <p>remerciements
+        et Inspirations:<a href="https://freefrontend.com/css-modal-windows/"><br>
         </a></p>
     <p><a href="https://freefrontend.com/css-modal-windows/">ici un florilège de fenêtre modale</a></p>
     <p>Cet article est une version traduite et modifiée de l'excellent article de <a href="https://medium.com/@Taha_Shashtari/how-to-apply-nested-transitions-in-vue-d3a9fe1e1c98">Taha_Shashtari</a> sur medium.com</p>
