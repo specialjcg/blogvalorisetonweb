@@ -262,9 +262,9 @@ button:active {
   }
   .content /deep/ pre > code {
     font-size: inherit;
-    font-size: 0.7em;
+    font-size: 0.9em;
     line-height: inherit;
-    line-height: 1em;
+    line-height: 1.1em;
   }
 }
 
