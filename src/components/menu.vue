@@ -52,7 +52,7 @@
       <Twitter class="smarphone" :url="myurl()" scale="2"></Twitter
     ></a>
     <a href="https://valorisetonweb.fr/contact"
-      ><button class="devis">Obtenir votre devis</button></a
+      ><button class="devis">J'obtiens mon devis</button></a
     >
     <ul v-if="this.visible">
       <li>
@@ -171,7 +171,7 @@ ul {
 }
 li a:hover {
   transform: translate3d(20px, 0, 0);
-  color: red;
+  color: #fbc831;
   text-align: center;
   font-family: "Courgette", cursive;
 }
@@ -242,7 +242,7 @@ button:active {
   transition: all 0.1s ease;
   background: black;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (min-width: 200px) and (max-width: 500px) {
   .tablette_pc {
     display: none;
   }
@@ -289,7 +289,7 @@ button:active {
   ul {
     position: relative;
     /* padding: 25px 0;*/
-
+    margin-top: -2vh;
     /* on centre les liens */
     text-align: left;
     list-style-type: none;
@@ -418,7 +418,7 @@ button:active {
     flex-shrink: 0;
   }
   li {
-    font-size: 1.618em;
+    font-size: 1.218em;
   }
 }
 
@@ -431,7 +431,7 @@ button:active {
     display: unset;
   }
   .heade {
-    min-height: 11.08vh;
+    min-height: 8.08vh;
   }
   img,
   span {
@@ -474,7 +474,7 @@ button:active {
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1060px) {
   .tablette_pc {
     display: none;
   }
@@ -528,7 +528,7 @@ button:active {
   }
 }
 
-@media only screen and (min-width: 1100px) {
+@media only screen and (min-width: 1173px) {
   .tablette_pc {
     display: none;
   }
@@ -584,7 +584,7 @@ button:active {
   }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1285px) {
   button {
     font-size: 1.818em;
 
@@ -592,7 +592,12 @@ button:active {
     margin-left: 3vw;
     margin-right: 1vw;
   }
-
+  img,
+  span {
+    margin: 1vw;
+    padding: 0;
+    flex: 1 0 auto;
+  }
   .tablette_pc {
     display: unset;
   }
@@ -618,6 +623,15 @@ button:active {
     margin-left: 2vw;
     margin-right: 5vw;
   }
+  .nom {
+    flex: 1 0 auto;
+    margin: 0;
+    padding: 0;
+    margin-left: 2vw;
+    font-size: 1.618em;
+    text-align: left;
+    vertical-align: top;
+  }
   img,
   span {
     margin: 1vw;
@@ -633,6 +647,7 @@ button:active {
     text-align: left;
     vertical-align: top;
   }
+
   .logo {
     flex: 0 1 auto;
 

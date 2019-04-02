@@ -18,20 +18,18 @@
     <transition name="slide-out-elliptic-top-fwd" mode="out-in">
       <router-view :key="$route.fullPath"></router-view>
     </transition>
-
-    <PageFooter />
   </div>
 </template>
 
 <script>
 import menue from "./components/menu.vue";
 import PageHeader from "./components/PageHeader.vue";
-import PageFooter from "./components/PageFooter.vue";
+
 export default {
   name: "app",
   components: {
     PageHeader,
-    PageFooter,
+
     menue
   }
 };

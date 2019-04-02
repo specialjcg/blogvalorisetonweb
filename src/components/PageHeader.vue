@@ -1,7 +1,6 @@
 <template>
-  <header class="titre1" >
-    <h1 >Blog de Valorisetonweb :Crée son site web sur mesure</h1>
-    
+  <header class="titre1">
+    <h1>Blog de Valorisetonweb :Crée son site web sur mesure</h1>
   </header>
 </template>
 
@@ -30,20 +29,34 @@ export default {
 @media only screen and (min-width: 340px) {
   .titre1 {
     top: 20vh;
-    font-size: 0.8em;
+  }
+  h1 {
+    font-size: 0.5em;
   }
 }
 
 @media only screen and (min-width: 640px) {
   .titre1 {
     top: 20vh;
-    font-size: 1em;
+  }
+  h1 {
+    font-size: 0.8em;
   }
 }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1060px) {
   .titre1 {
-    top: 11vh;
-    font-size: 1.618em;
+    top: 10vh;
+  }
+  h1 {
+    font-size: 0.8em;
+  }
+}
+@media only screen and (min-width: 1135px) {
+  .titre1 {
+    top: 10vh;
+  }
+  h1 {
+    font-size: 1em;
   }
 }
 @media only screen and (min-width: 1400px) {

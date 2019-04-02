@@ -1,31 +1,32 @@
 <template>
-  <section v-if="article">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link href="themes/prism.css" rel="stylesheet" />
-    <article>
-      <div class="block">
-        <header>
-          <button class="button1" href="#" v-on:click="navigateBack()">
-            Go Back
-          </button>
-
-          <img
-            class="img1"
-            v-if="article.image"
-            v-bind:src="/blog/ + article.image"
-            v-bind:alt="article.image"
-          />
-          <img v-else v-bind:alt="article.headline" />
-        </header>
-        <h1>{{ article.headline }}</h1>
-        <pre><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar">  </i>{{ article.created }}</pre>
-        <div class="content" v-html="article.content"></div>
-      </div>
-    </article>
-  </section>
+  <div>
+    <button class="button1" href="#" v-on:click="navigateBack()">
+      Go Back
+    </button>
+    <section v-if="article">
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <link href="themes/prism.css" rel="stylesheet" />
+      <article>
+        <div class="block">
+          <header>
+            <img
+              class="img1"
+              v-if="article.image"
+              v-bind:src="/blog/ + article.image"
+              v-bind:alt="article.image"
+            />
+            <img v-else v-bind:alt="article.headline" />
+          </header>
+          <h1>{{ article.headline }}</h1>
+          <pre><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar">  </i>{{ article.created }}</pre>
+          <div class="content" v-html="article.content"></div>
+        </div>
+      </article>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -101,6 +102,7 @@ export default {
   text-decoration: none;
 }
 section {
+  position: relative;
   max-width: 900px;
   margin: 25vh auto;
 
@@ -179,6 +181,7 @@ section article .block > pre {
 }
 
 .button1 {
+  position: fixed;
   color: #fbc831;
   font-family: "Bitter", serif;
   text-shadow: 3px 3px 3px #d17b0f;
@@ -195,10 +198,10 @@ section article .block > pre {
   font-weight: 800;
   left: 0;
   width: auto;
+  margin-top: 13vh;
+  margin-left: 4vw;
 
   z-index: 1;
-
-  position: absolute;
 }
 .button1:hover {
   transition: all 0.5s ease;
@@ -244,7 +247,7 @@ button:active {
   }
 }
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 1060px) {
   .button1 {
     font-size: 1.618em;
   }

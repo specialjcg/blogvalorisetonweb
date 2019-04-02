@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import ArticleList from "@/components/ArticleList.vue";
 import ArticleDetails from "@/components/ArticleDetails.vue";
-import About from "@/components/About.vue";
 
 Vue.use(Router);
 
@@ -13,10 +12,6 @@ export default new Router({
     {
       path: "/",
       component: ArticleList
-    },
-    {
-      path: "/about",
-      component: About
     },
     {
       path: "/:id",
