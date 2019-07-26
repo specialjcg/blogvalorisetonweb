@@ -5,20 +5,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
-    <picture class="fondecran">
-      <source
-        srcset="../assets/trianglify.svg"
-        type="image/svg+xml"
-        alt="createur-de-site-internet sur mesure beaujolais oingt"
-      />
-      <img
-        class="img1"
-        src="../assets/trianglify.png"
-        alt="createur-de-site-internet sur mesure beaujolais oingt"
-      />
-    </picture>
     <div class="container">
-     
       <div
         class="blog-home"
         v-for="(article, index) in articles"
@@ -29,25 +16,30 @@
           @mouseleave="visibleTitre2(index)"
         >
           <div v-on:click="navigateToArticle(article.id)">
-            <img
-              v-if="article.image"
-              class="img1"
-              v-bind:src="article.image.url"
-              v-bind:alt="article.headline"
-              :id="imginfo(index)"
-            />
-            <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
+            <router-link
+              :to="{ name: 'blogarticle', params: { id: article.id } }"
+              :key="$route.fullPath"
+            >
+              <img
+                v-if="article.image"
+                class="img3"
+                :src="article.image"
+                :alt="article.image"
+                :id="imginfo(index)"
+              />
+              <img v-else v-bind:alt="article.headline" :id="imginfo(index)" />
 
-            <div :id="titre2(index)">
-              <h4>{{ article.headline }}</h4>
-              <hr />
-              <div class="commentaire">
-                <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  mydatepost(article.created)  }}</p></pre>
+              <div :id="titre2(index)">
+                <h4>{{ article.headline }}</h4>
+                <hr />
+                <div class="commentaire">
+                  <pre><p><i class="fa fa-comment-o"></i>  <i class="fa fa-calendar"></i>  {{  article.created }}</p></pre>
+                </div>
               </div>
-            </div>
-            <div class="card-info" :id="cardinfo(index)">
-              <p>{{ article.summary }}</p>
-            </div>
+              <div class="card-info" :id="cardinfo(index)">
+                <p>{{ article.summary }}</p>
+              </div>
+            </router-link>
           </div>
         </article>
       </div>
@@ -56,18 +48,22 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import json from "./article/article.json";
+
 export default {
   data() {
     return {
       articles: []
     };
   },
+  created() {
+    this.getPosts();
+  },
   methods: {
-    mydatepost(index) {
-      var essai = new Date(index * 1000).toLocaleDateString();
-      return essai;
+    getPosts() {
+      this.articles = json;
     },
+
     titre2(index) {
       var essai = "titre2" + index;
 
@@ -96,33 +92,7 @@ export default {
       document.getElementById("imginfo" + index).style.opacity = 1;
     },
     navigateToArticle(id) {
-      this.$router.push("article/" + id);
-    }
-  },
-  apollo: {
-    articles: {
-      query: gql`
-        {
-          findArticles(
-            sort: { field: "created", order: "DESC" }
-            limit: 9
-            page: 1
-          ) {
-            result {
-              id
-              created
-              headline
-              summary
-              image {
-                url
-              }
-            }
-          }
-        }
-      `,
-      update: result => {
-        return result.findArticles.result;
-      }
+      this.$router.push(id);
     }
   }
 };
@@ -138,44 +108,23 @@ $h-color: white;
 $yellow: #fbc831;
 $txt-color: white;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 .commentaire {
   top: 40vh;
   position: absolute;
   color: $txt-color;
 }
-.fondecran {
-  position: fixed;
-
-  left: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-
-  margin: 0;
-  padding: 0;
-  top: 0;
-  z-index: 0;
-}
 
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-
-  left: 0;
-  right: 0;
-
-  margin: 0;
-  padding: 0;
-  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90vw;
+  max-height: auto;
   z-index: 0;
 }
 
@@ -200,14 +149,13 @@ $txt-color: white;
   width: $card-width;
   height: $card-height;
   position: relative;
-  top: 20vh;
+  top: 22vh;
   left: 2vw;
 
-  overflow: hidden;
   border-radius: 10px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
-  min-width: auto;
+  min-width: 20vw;
   align-self: flex-start;
   flex: 0 1 auto;
   background: black;
@@ -231,7 +179,16 @@ $txt-color: white;
   transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
   z-index: 0;
 }
-
+.img3 {
+  width: 100%;
+  height: 25vh;
+  background-image: cover;
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
+  z-index: 0;
+}
 hr {
   position: relative;
   width: 11.08vw;
@@ -303,62 +260,16 @@ p {
   background-size: cover;
   vertical-align: middle;
 }
-.buttercms {
-  transition: all 0.5s ease;
-}
-.buttercms:hover {
-  transform-origin: 10% 5%;
-  transform: scale(1.05);
-}
+
 @media only screen and (min-width: 340px) {
   .blog-home {
-    top: 28vh;
-  }
-  .titre1 {
-    top: 15vh;
-  }
-  .img2 {
-    top: 23vh;
-    left: 20vw;
-    width: 18vw;
-    height: 5vh;
+    top: 38vh;
   }
 }
 
 @media only screen and (min-width: 640px) {
   .blog-home {
-    top: 23vh;
-  }
-  .titre1 {
-    top: 11vh;
-  }
-  .img2 {
-    top: 18vh;
-    left: 25vw;
-    width: 18vw;
-    height: 5vh;
-  }
-}
-@media only screen and (min-width: 900px) {
-  .titre1 {
-    top: 11vh;
-  }
-  .img2 {
-    top: 13.5vh;
-    left: 35vw;
-    width: 15vw;
-    height: 5vh;
-  }
-}
-@media only screen and (min-width: 1400px) {
-  .titre1 {
-    top: 10vh;
-  }
-  .img2 {
-    top: 13.5vh;
-    left: 25vw;
-    width: 15vw;
-    height: 5vh;
+    top: 28vh;
   }
 }
 </style>

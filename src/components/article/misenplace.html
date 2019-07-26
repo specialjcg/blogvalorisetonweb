@@ -1,0 +1,392 @@
+<! DOCTYPE html>
+<html lang="fr" class=" -webkit-">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   <link href="prism.css" rel="stylesheet" />
+   <style type="text/css">
+
+    pre {
+   margin:auto;
+       max-width: 95%;
+    }
+   .imgage {
+     
+   margin:auto;
+      width:95%;
+     height:20vh;
+    }
+ 
+
+</style>
+</head>
+<body>
+   
+<script src="prism.js"></script>
+    <h2>Solution pour
+        réaliser une transition imbriquée avec VUEJS </h2>
+    <p>Vue
+        autorise facilement l’animation (affichage ou masquage) d’un élément via
+        la balise &lt;transition&gt;</p>
+   
+ <p style="text-align: center;">
+    <img class="imgage" src="/blog/gettyimages-517044090-612x612.jpg" alt=""  ></p>
+    <p>Mais
+        qu'en est-il quand vous souhaitez afficher ou masquer des éléments
+        imbriqués séquentiellement? Par exemple, une fois l'élément racine
+        affiché, affichez l'élément A, puis l'élément B, etc.</p>
+
+    <p>Imaginons
+        que nous voulions progressivement animer des transitions entre éléments emboités:Bouton →transition→fenêtre Modale → transition-&gt;bouton</p>
+    <p>Avec Vue
+        vous pourrez le faire facilement,un moyen existe pour savoir quand la
+        transition précédente est terminée pour commencer la suivante.</p>
+        <p>Ci dessous ce que nous voulons obtenir<br>
+</p>
+    <p><iframe src="https://specialjcg-blogarticle3.glitch.me"
+        style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"></iframe>
+    </p>
+
+    <p>Si vous vous demandez
+        comment le réaliser et que ne l’avez jamais fait, je vais vous montrer comment l'éxécuter de manière propre et contrôlable. </p>
+    <p>Pour
+        cela nous allons d’abord créer un bouton et un composant Citation.</p> 
+        <p>Nous utiliserons un arrière-plan de
+        superposition pour masquer le bouton, et afficherons une fenêtre modale blanche, en 3 étapes:</p>
+    
+    <p>1ére étape, l'utilisateur
+        affiche le composant Citation en cliquant sur le bouton et le ferme
+        en cliquant sur l'arrière-plan de superposition. 
+        Le composant Citation s'ouvrira sans animations.</p>
+    <p>Dans un
+        second temps, nous ajouterons une transition en une étape - ainsi,
+        l’arrière-plan de superposition et la zone de contenu seront affichés
+        simultanément.</p>
+    <p>Enfin,
+        nous ajouterons une transition imbriquée sur la fenêtre modale, qui sera
+        affichée une fois la transition d’arrière-plan superposée terminée.</p>
+
+    <h2>1 ére étape: affichage
+        du Composant Citation sans animation</h2>
+        <p>Ce qui nous donnerais ceci:</p>
+        <p><iframe src="https://morning-valley.glitch.me"
+        style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"></iframe>
+    </p>
+    <p>Commençons
+        rapidement avec le <a href="https://cli.vuejs.org/guide/installation.html">prototypage
+            rapide de Vue CLI 3</a>. Donc, créons un composant standard app.vue ci
+        dessous (langage Typescript):</p>
+   
+    <pre  class="language-markup" ><code class="language-markup" >&lt;template&gt;
+    &lt;div id=&quot;app&quot;&gt;
+        &lt;Citation v-if=&quot;showComponent&quot; @close=&quot;showComponent = false&quot; /&gt;
+        &lt;button @click=&quot;showComponent = true&quot;&gt;
+            {{ title }}
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+        <pre class="language-js"><code  class="language-js" >&lt;script lang="ts"&gt;
+    import {
+        Component,
+        Vue,
+        Prop
+    } from "vue-property-decorator";
+    import Citation from "./components/Citation.vue";
+
+    @Component({
+        components: {
+            Citation
+        }
+    })
+    export default class App extends Vue {
+        showComponent: Boolean = false;
+        title: string = "bonjour";
+    }
+&lt;/script&gt;
+</code></pre>
+    </div>
+    <p>
+        Ce template est composé d'un bouton qui activera une variable showComponent
+        sur True qui affichera le composant modale . (Notez que nous n'avons pas
+        encore créé ce composant, mais nous le ferons bientôt.)</p>
+
+    <p>Remarquons que @Close est un événement
+        personnalisé qui lorsqu'il sera émis basculera showComponent sur false</p>
+
+    <p>Pour le
+        <a href="https://codemyui.com/tag/button/page/13/">style du bouton</a> et
+        de la page faite à votre goût mais je vous propose ceci:</p>
+    <pre class="language-css"><code class="language-css">&lt;style lang=&quot;scss&quot;&gt;
+   * {
+       box-sizing: border-box;
+   }
+   body {
+       margin: 0;
+       padding: 0;
+       height: 100vh;
+       width: 100vw;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-family: "Lucida Console", Monaco, monospace;
+       -webkit-font-smoothing: antialiased;
+       -moz-osx-font-smoothing: grayscale;
+   }
+   button {
+  color: #fbc831;
+  font-family: "Lucida Console", Monaco, monospace;
+  text-shadow: 3px 3px 3px #d17b0f;
+  background: rgba(0, 113, 0, 1.2);
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  border-radius: 5px;
+  text-decoration: none;
+  height: auto;
+  font-size: 2em;
+  font-weight: 800;
+  text-align: center;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease-out;
+}
+button:hover {
+    background-image: linear-gradient(
+    to left,
+    #007100,
+    #1b7e0c,
+    #2d8b17,
+    #3c9821,
+    #4ba62a
+  );
+  transition: all 0.3s ease-out;
+  transform-origin: 0% 50%;
+  transform: rotateY(6deg) rotateZ(1deg);
+}
+&lt;/style&gt;
+    </code></pre>
+    <p>Ensuite, créons le composant Citation.vue, puis ajoutons les éléments
+        suivants dans ce&nbsp; modèle : </p>
+    <pre class="language-markup"><code class="language-markup">&lt;template&gt;
+    &lt;div class=&quot;fond&quot; @click=&quot;$emit('close')&quot;&gt;
+        &lt;div class=&quot;content&quot; @click.stop&gt;
+            {{ Alea }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+    <pre class="language-js"><code class="language-js">&lt;script lang=&quot;ts&quot;&gt;
+ import { Component, Prop, Vue } from "vue-property-decorator";
+ @Component({})
+ export default class Citation extends Vue {
+     Alea: String = "";
+     numbre: number = 0;
+     choix: boolean = true;
+     citationtext: Array<string> = [
+         "Exige beaucoup de toi-même et attends peu des autres. Ainsi beaucoup d'ennuis te seront épargnés.Confucius",
+         "Dans la vie on ne fait pas ce que l'on veut mais on est responsable de ce que l'on est.Jean Paul Sartre",
+         "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.Gandhi",
+         "On a deux vies. La deuxième commence quand on réalise qu’on n’en a qu’une. Confucius",
+         "« Si vous pouvez le rêver, vous pouvez le faire. » Walt Disney",
+         "Si vous pensez que l’aventure est dangereuse, essayez la routine, elle est mortelle. » Paulo Coelho",
+         "« Un voyage de mille lieues commence toujours par un premier pas. » Lao Tseu",
+         "« J’ai des questions à toutes vos réponses »  Woody Allen -",
+         "« Les autres parlent, moi je travaille »picasso"
+     ];
+     mounted() {
+         window.setInterval(() => {
+             this.numbre = Math.floor(Math.random() * 9)
+             this.Alea = this.citationtext[this.numbre];
+         }, 2000);
+     }
+ }
+&lt;/script&gt;
+</code ></pre>
+    <p>Notez
+        que la classe ".fond" est utilisé comme arrière-plan de
+        superposition de la future fenêtre modale. Lorsque l'utilisateur clique
+        dessus, l'événement de clôture est émis.Nous
+        utilisons @click.stop sur ".content" pour empêcher la fermeture de la fenêtre
+        modale lorsque vous cliquez dessus. Pour égayer notre fenêtre modale j'ai
+        rajouté un setinterval sur les citations.</p>
+
+    <p>Pour le
+        style de la fenêtre ,idem que précédemment, je vous propose ceci:</p>
+    <pre class="language-css"><code class="language-css">.fond {
+position: absolute;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.6);
+z-index:1;
+}
+.content {
+position: absolute;
+top: 50%;
+left: 50%;
+width: calc(100% - 20px);
+max-width: 500px;
+transform: translate(-50%, -50%);
+background: #fff;
+border-radius: 3px;
+padding: 20px;
+line-height: 1.5;
+font-size: 18px;
+color: #444;
+box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
+}
+</code></pre>
+
+    <p>À ce stade, vous devriez pouvoir ouvrir / fermer la fenêtre modale, mais sans
+        animation. </p>
+
+    <h2>2 éme étape:Transition
+        en une seule phase</h2>
+        <p>Ci dessous ce que nous voulons obtenir<br>
+</p>
+    <p><iframe src="https://able-geography.glitch.me"
+        style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"></iframe>
+    </p>
+    <p>Ouvrons
+        la fenêtre modale avec une transition fondu en une étape. C’est "Bête comme chou". Enveloppez simplement le contenu du composant modal avec</p>
+
+    <pre class="language-markup"><code class="language-markup">&lt;transition name="fade"&gt;&lt;/transition&gt;</code></pre>
+
+    <p>comme
+        ceci:</p>
+
+    <div class="code"><pre class="language-markup"><code class="language-markup">&lt;template&gt;
+  &lt;transition name=&quot;fade&quot;&gt;
+    &lt;div class=&quot;fond&quot; @click=&quot;$emit('close')&quot;&gt;
+        &lt;div  class=&quot;content&quot; @click.stop&gt;
+          {{ Alea }}
+        &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/transition&gt;
+&lt;/template&gt;</code></pre></div>
+    <p>Ensuite,
+        définissez la transition de fondu dans le style, comme suit:</p>
+    <pre class="language-css"><code class="language-css">fade-enter,
+.fade-leave-to {
+opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+transition: 0.2s opacity ease-out;
+}
+</code></pre>
+
+    <p style="text-align: center;"><img class=imgage src="/blog/all-is-well-1418895_640.jpg" alt="Photo par LisaAttractLove sur Pixabay"
+            title="Photo par LisaAttractLove sur Pixabay" ><br>
+    </p>
+    <h2>3 éme étape: Ajouter
+        des transitions imbriquées à la fenêtre modale</h2>
+    <p>Voici
+        comment nous allons le faire: </p>
+    <ul>
+        <li>Envelopper&nbsp; la classe "content"&nbsp; afin qu'il puisse être
+            animé.</li><pre class="language-markup"><code  class="language-markup">&lt;transition name=&quot;fade&quot;&gt;</code></pre>
+        <li> Ajoutez v-if = "showContent" à la classe "content" afin de pouvoir
+            spécifier quand cet élément peut être affiché (nous pouvons le faire en
+            définissant showContent sur true). </li>
+        <li>Écoutez @after-enter sur le div de classe fond. Et lorsque cet
+            événement se déclenche, nous définissons showContent sur true. </li>
+        <li>Modifiez @click de la classe "fond" pour définir showContent sur
+            false. Ainsi, au lieu d'émettre l'événement close immédiatement au clic,
+            nous masquons l'élément de la classe "content" avec une animation, et ce
+            n'est qu'après cette animation que nous émettrons l'événement "close".
+            Cela nous amène donc à notre point suivant. </li>
+        <li>
+            Ajoutez @after-leave = "$ emit ('close')" au composant de classe
+                "content".
+        </li>
+    </ul>
+    <p>Après avoir appliqué les étapes ci-dessus,voilà comment cela se présente</p>
+    <pre class="language-markup"><code class="language-markup">&lt;template&gt;
+    &lt;transition name=&quot;fade&quot; @after-enter=&quot;showContent = true&quot;&gt;
+        &lt;div class=&quot;fond&quot; @click=&quot;showContent = false&quot;&gt;
+            &lt;transition name=&quot;fade&quot; @after-leave=&quot;$emit('close')&quot;&gt;
+                &lt;div v-if=&quot;showContent&quot; class=&quot;content&quot; @click.stop&gt;
+                    {{ Alea }}
+                &lt;/div&gt;
+            &lt;/transition&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/template&gt;
+</code></pre>
+    <p>Merci d'observer la définition des variables</p>
+    <pre class="language-js"><code class="language-js">&lt;script lang=&quot;ts&quot;&gt;
+ import { Component, Prop, Vue } from "vue-property-decorator";
+ @Component({})
+ export default class Citation extends Vue {
+     Alea: String = "";
+     showContent: boolean = false;
+     numbre: number = 0;
+     choix: boolean = true;
+     citationtext: Array<string> = [
+         "Exige beaucoup de toi-même et attends peu des autres. Ainsi beaucoup d'ennuis te seront épargnés.Confucius",
+         "Dans la vie on ne fait pas ce que l'on veut mais on est responsable de ce que l'on est.Jean Paul Sartre",
+         "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.Gandhi",
+         "On a deux vies. La deuxième commence quand on réalise qu’on n’en a qu’une. Confucius",
+         "« Si vous pouvez le rêver, vous pouvez le faire. » Walt Disney",
+         "Si vous pensez que l’aventure est dangereuse, essayez la routine, elle est mortelle. » Paulo Coelho",
+         "« Un voyage de mille lieues commence toujours par un premier pas. » Lao Tseu",
+         "« J’ai des questions à toutes vos réponses »  Woody Allen ",
+         "« Les autres parlent, moi je travaille »picasso"
+     ];
+     mounted() {
+         this.Alea = this.citationtext[Math.floor(Math.random() * 9)];
+         window.setInterval(() => {
+             this.numbre = Math.floor(Math.random() * 9);
+             this.Alea = this.citationtext[this.numbre];
+         }, 2000);
+     }
+ }
+ &lt;/script&gt;
+</code></pre>
+    <h2>Voici
+        comment fonctionne la partie affichage: </h2>
+    <p>Lorsque
+        l'utilisateur clique sur le bouton, nous définissons showComponent sur
+        true, ce qui déclenche la balise &lt;transition&gt;, qui affiche
+        l'arrière plan en transparence voilée . </p>
+        <p>Une fois la transition terminée, l'événement
+        @after-enter est émis. Et pour cet événement, nous plaçons
+        showContent sur true qui déclenche la transition pour cet élément.</p>
+        <p>
+        Maintenant pour la partie masquée, lorsque l'utilisateur clique sur
+        l'arrière-plan,nous mettons showContent sur false, ce qui exécute la
+        transition pour quitter&nbsp; l'élément de classe "content".
+         <p>Et lorsque
+        cette transition est terminée, l'événement @after-leave est lancé. Nous
+        traitons cet événement en émettant le signal 'close' qui définit
+        showComponent sur false pour masquer la fenêtre modale avec une
+        transition. </p>
+
+    <p>Si vous
+        exécutez maintenant l'exemple, vous devriez voir les transitions
+        imbriquées fonctionner comme prévu.</p>
+
+    <br>
+<p>vous pouvez telecharger le git et l'installer en local en suivant ce <a href="https://github.com/specialjcg/blogarticle3">lien<br>
+        </p>
+    <p>remerciements
+        et Inspirations:<a href="https://freefrontend.com/css-modal-windows/"><br>
+        </a></p>
+    <p><a href="https://freefrontend.com/css-modal-windows/">ici un florilège de fenêtre modale</a></p>
+    <p>Cet article est une version traduite et modifiée de l'excellent article de <a href="https://medium.com/@Taha_Shashtari/how-to-apply-nested-transitions-in-vue-d3a9fe1e1c98">Taha_Shashtari</a> sur medium.com</p>
+<a href="http://www.filiere-gourmande.fr/actualite/graines-de-rebelles-boulanger-roland-feuillas-se-livre/">le\r\n
+    boulanger de cucugnan</a>
+</body>
+
+
+</html>
