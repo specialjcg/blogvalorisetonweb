@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "babel-plugin-prismjs": "^1.1.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "prismjs": "^1.17.1",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
